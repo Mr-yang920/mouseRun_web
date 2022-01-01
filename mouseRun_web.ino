@@ -1,4 +1,4 @@
-#include <Adafruit_I2CDevice.h>
+ï»¿#include <Adafruit_I2CDevice.h>
 #include <Adafruit_GFX.h>
 #include <Wire.h>
 #include <SPI.h>
@@ -6,13 +6,13 @@
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
-#include <FS.h>
+#include <FS.h> 
 #include <ArduinoJson.h>
-#include <AsyncTCP.h>
+#include <AsyncTCP.h> 
 #include "DHT.h"
 #include "Adafruit_Sensor.h"
-#define DHTPIN 23   //DHT11 DATA Êı¾İÒı½Å
-#define DHTTYPE DHT11  //Ñ¡ÔñµÄÀàĞÍ
+#define DHTPIN 23   //DHT11 DATA æ•°æ®å¼•è„š
+#define DHTTYPE DHT11  //é€‰æ‹©çš„ç±»å‹
 
 #define HALLPIN1 33
 #define HALLPIN2 18
@@ -21,17 +21,17 @@
 #define CLOCK_SDA_PIN 4
 #define CLOCK_SCL_PIN 16
 #define DUMP_ENERGY_PIN 32
-#define SLEEPTIME 10//Ë¯ÃßÊ±¼ä
+#define SLEEPTIME 10//ç¡çœ æ—¶é—´
 #define wifi_sta
 #define SAVELOG
 
 //#define test
 
-const char* ssid = "web_show";//ÉèÖÃÈÈµãÃû³Æ(×Ô¶¨Òå)
-const char* password = "1234567890";//ÉèÖÃÈÈµãÃÜÂë(×Ô¶¨Òå)
-const char* ssid_sta = "long";//ÉèÖÃÈÈµãÃû³Æ(×Ô¶¨Òå)
-const char* password_sta = "yy201011";//ÉèÖÃÈÈµãÃÜÂë(×Ô¶¨Òå)
-AsyncWebServer server(80);//web·şÎñÆ÷¶Ë¿ÚºÅ
+const char* ssid = "web_show";//è®¾ç½®çƒ­ç‚¹åç§°(è‡ªå®šä¹‰)
+const char* password = "1234567890";//è®¾ç½®çƒ­ç‚¹å¯†ç (è‡ªå®šä¹‰)
+const char* ssid_sta = "long";//è®¾ç½®çƒ­ç‚¹åç§°(è‡ªå®šä¹‰)
+const char* password_sta = "yy201011";//è®¾ç½®çƒ­ç‚¹å¯†ç (è‡ªå®šä¹‰)
+AsyncWebServer server(80);//webæœåŠ¡å™¨ç«¯å£å·
 RTC_DS3231 rtc;
 DHT dht(DHTPIN , DHTTYPE);
 
@@ -58,15 +58,15 @@ struct VerificationCode
   bool state=false;
 } VerificationCode_;
 
-double sendRunData_R[4][60] = {};//4¸öÅÜÂÖ£¬Ã¿¸ö60¸öÊı¾İ
-int sendHumiture_R[2][24] = {};//ÎÂÊª¶È£¬24Ğ¡Ê±Êı¾İ
-int time_num_mm = 0;//ÓÃÓÚ¼ÇÂ¼ÅÜ¶¯Êı¾İ´æ´¢Êı×éµÄË÷ÒıÖµ
-int time_num_hh = 0;//ÓÃÓÚ¼ÇÂ¼ÎÂÊª¶È´æ´¢Êı×éµÄË÷ÒıÖµ
+double sendRunData_R[4][60] = {};//4ä¸ªè·‘è½®ï¼Œæ¯ä¸ª60ä¸ªæ•°æ®
+int sendHumiture_R[2][24] = {};//æ¸©æ¹¿åº¦ï¼Œ24å°æ—¶æ•°æ®
+int time_num_mm = 0;//ç”¨äºè®°å½•è·‘åŠ¨æ•°æ®å­˜å‚¨æ•°ç»„çš„ç´¢å¼•å€¼
+int time_num_hh = 0;//ç”¨äºè®°å½•æ¸©æ¹¿åº¦å­˜å‚¨æ•°ç»„çš„ç´¢å¼•å€¼
 //float mouseRunNum1 = 0 , mouseRunNum2 = 0 , mouseRunNum3 = 0 , mouseRunNum4 = 0;
 
 
 char daysOfTheWeek[7][12] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
-volatile double runData1 = 0 , runData2 = 0 , runData3 = 0 , runData4 = 0;//ÀÏÊóÅÜ¶¯µÄÊı¾İ
+volatile double runData1 = 0 , runData2 = 0 , runData3 = 0 , runData4 = 0;//è€é¼ è·‘åŠ¨çš„æ•°æ®
 
 void showData(int data , bool printType = false , bool type = true);
 void showData(double data , bool printType = false , bool type = true);
@@ -75,11 +75,11 @@ void showData(String data , bool printType = false , bool type = true);
 void setup()
 {
 
-  Serial.begin(115200);//¿ªÆô´®¿Ú´òÓ¡
+  Serial.begin(115200);//å¼€å¯ä¸²å£æ‰“å°
 
   //SerialBT.begin("mouse");
-  //³õÊ¼»¯ÉÁ´æÏµÍ³
-  Serial.print("ÕıÔÚ´ò¿ªÉÁ´æÏµÍ³...");
+  //åˆå§‹åŒ–é—ªå­˜ç³»ç»Ÿ
+  Serial.print("æ­£åœ¨æ‰“å¼€é—ªå­˜ç³»ç»Ÿ...");
   Serial.print("test");
   while ( !SPIFFS.begin(true) )
   {
@@ -87,13 +87,13 @@ void setup()
     delay(1000);
   }
   Serial.println("OK!");
-  // ¿ÉÓÃ¿Õ¼ä×ÜºÍ£¨µ¥Î»£º×Ö½Ú£©
-  Serial.print("¿ÉÓÃ¿Õ¼ä×ÜºÍ: ");
+  // å¯ç”¨ç©ºé—´æ€»å’Œï¼ˆå•ä½ï¼šå­—èŠ‚ï¼‰
+  Serial.print("å¯ç”¨ç©ºé—´æ€»å’Œ: ");
   Serial.print(SPIFFS.totalBytes());
   Serial.println(" Bytes");
 
-  // ÒÑÓÃ¿Õ¼ä£¨µ¥Î»£º×Ö½Ú£©
-  Serial.print("ÒÑÓÃ¿Õ¼ä: ");
+  // å·²ç”¨ç©ºé—´ï¼ˆå•ä½ï¼šå­—èŠ‚ï¼‰
+  Serial.print("å·²ç”¨ç©ºé—´: ");
   Serial.print(SPIFFS.usedBytes());
   Serial.println(" Bytes");
 
@@ -101,14 +101,14 @@ void setup()
 
   if ( !rtc.begin() )
   {
-    Serial.println("Ê±ÖÓÎ´Á¬½Ó/Î´Á¬½ÓÕıÈ·");
+    Serial.println("æ—¶é’Ÿæœªè¿æ¥/æœªè¿æ¥æ­£ç¡®");
     Serial.flush();
     while ( 1 ) delay(10);
   }
 
   if ( rtc.lostPower() )
   {
-    Serial.println("Ê±ÖÓÊ±¼ä´íÎó£¬ÏÖÔÚĞŞ¸Ä£¬ÉÔºóÇëÎñ±ØÊÖ¶¯Ğ£×¼Ê±¼ä");
+    Serial.println("æ—¶é’Ÿæ—¶é—´é”™è¯¯ï¼Œç°åœ¨ä¿®æ”¹ï¼Œç¨åè¯·åŠ¡å¿…æ‰‹åŠ¨æ ¡å‡†æ—¶é—´");
     rtc.adjust(DateTime(F(__DATE__) , F(__TIME__)));
   }
   /*Serial.println(__DATE__);
@@ -119,7 +119,7 @@ void setup()
   pinMode(HALLPIN3 , INPUT_PULLUP);
   pinMode(HALLPIN4 , INPUT_PULLUP);
 
-  //ÉèÖÃÖĞ¶Ï´¥·¢³ÌĞò
+  //è®¾ç½®ä¸­æ–­è§¦å‘ç¨‹åº
 
   dht.begin();
 
@@ -131,33 +131,33 @@ void setup()
   WiFi.mode(WIFI_MODE_APSTA);
   WiFi.softAP(ssid , password);
   WiFi.begin(ssid_sta , password_sta);
-  Serial.print("ÕıÔÚÁ¬½Óµ½£º");
+  Serial.print("æ­£åœ¨è¿æ¥åˆ°ï¼š");
   Serial.print(ssid_sta);
-  int conn_try_num = 0;//³¢ÊÔÁ¬½ÓwifiµÄÊ±¼ä
+  int conn_try_num = 0;//å°è¯•è¿æ¥wifiçš„æ—¶é—´
   while ( WiFi.status() != WL_CONNECTED )
-  { // ³¢ÊÔ½øĞĞwifiÁ¬½Ó¡£
+  { // å°è¯•è¿›è¡Œwifiè¿æ¥ã€‚
     delay(1000);
     conn_try_num++;
     Serial.print(".");
     if ( conn_try_num > 30 )
     {
-      Serial.println("wifiÁ¬½Ó³¬Ê±¡£¡£¡£");
+      Serial.println("wifiè¿æ¥è¶…æ—¶ã€‚ã€‚ã€‚");
       break;
     }
   }
-  Serial.print("IP address:\t");            // ÒÔ¼°
-  Serial.println(WiFi.localIP());           // NodeMCUµÄIPµØÖ·
+  Serial.print("IP address:\t");            // ä»¥åŠ
+  Serial.println(WiFi.localIP());           // NodeMCUçš„IPåœ°å€
 #endif // wifi_sta
 
 
-  Serial.print("Access Point: ");    // Í¨¹ı´®¿Ú¼àÊÓÆ÷Êä³öĞÅÏ¢
-  Serial.println(ssid);              // ¸æÖªÓÃ»§NodeMCUËù½¨Á¢µÄWiFiÃû
-  Serial.print("IP address: ");      // ÒÔ¼°NodeMCUµÄIPµØÖ·
-  Serial.println(WiFi.softAPIP());   // Í¨¹ıµ÷ÓÃWiFi.softAPIP()¿ÉÒÔµÃµ½NodeMCUµÄIPµØÖ·
+  Serial.print("Access Point: ");    // é€šè¿‡ä¸²å£ç›‘è§†å™¨è¾“å‡ºä¿¡æ¯
+  Serial.println(ssid);              // å‘ŠçŸ¥ç”¨æˆ·NodeMCUæ‰€å»ºç«‹çš„WiFiå
+  Serial.print("IP address: ");      // ä»¥åŠNodeMCUçš„IPåœ°å€
+  Serial.println(WiFi.softAPIP());   // é€šè¿‡è°ƒç”¨WiFi.softAPIP()å¯ä»¥å¾—åˆ°NodeMCUçš„IPåœ°å€
 
   if ( SPIFFS.exists("/index.html") )
   {
-    Serial.println("´æÔÚ¿ØÖÆÌ¨ÎÄ¼ş£¬¿ªÆô·şÎñÆ÷");
+    Serial.println("å­˜åœ¨æ§åˆ¶å°æ–‡ä»¶ï¼Œå¼€å¯æœåŠ¡å™¨");
     AsyncStaticWebHandler* handler = &server.serveStatic("/log" , SPIFFS , "/").setDefaultFile("log");
     AsyncStaticWebHandler* handler2 = &server.serveStatic("/runData" , SPIFFS , "/runData/");
     handler2->setCacheControl("max-age=1");
@@ -175,47 +175,47 @@ void setup()
     }
     handler->setAuthentication("log" , "admin");
 
-    server.on("/reqRunData" , HTTP_POST , sendRunData);//¸øÇ°¶Ë·´À¡ÅÜ¶¯ĞÅÏ¢
-    server.on("/reqHumiture" , HTTP_POST , sendHumiture);//¸øÇ°¶Ë·´À¡ÎÂÊª¶ÈĞÅÏ¢
+    server.on("/reqRunData" , HTTP_POST , sendRunData);//ç»™å‰ç«¯åé¦ˆè·‘åŠ¨ä¿¡æ¯
+    server.on("/reqHumiture" , HTTP_POST , sendHumiture);//ç»™å‰ç«¯åé¦ˆæ¸©æ¹¿åº¦ä¿¡æ¯
     server.on("/getServerTime" , HTTP_POST , getServerTime);
     server.on("/setServerTime" , HTTP_POST , setServerTime);
     server.on("/getdumpEnergy" , HTTP_POST , getdumpEnergy);
     server.on("/getAllFileName" , HTTP_POST , sendFileName);
     server.on("/getVerificationCode" , HTTP_POST , getVerificationCode);
     server.on("/restoreFactorySet" , HTTP_POST , restoreFactorySet);
-    server.begin();//¿ªÆôweb·şÎñÆ÷ 
+    server.begin();//å¼€å¯webæœåŠ¡å™¨ 
 
     //WiFi.mode(WIFI_MODE_NULL);
   } else
   {
-    Serial.println("²»´æÔÚ¿ØÖÆÌ¨ÎÄ¼ş");
+    Serial.println("ä¸å­˜åœ¨æ§åˆ¶å°æ–‡ä»¶");
   }
   //savaRunData();
   //saveHumitureData();
-  //Ä£Äâ¸öÎÄ¼ş£¬·½±ãµ÷ÊÔ
-  File dataFile = SPIFFS.open("/runData/20220101" , "w");// ½¨Á¢File¶ÔÏóÓÃÓÚÏòSPIFFSÖĞµÄfile¶ÔÏó£¨¼´/notes.txt£©Ğ´ÈëĞÅÏ¢
-  dataFile.print("This is test file");       // ÏòdataFileĞ´Èë×Ö·û´®ĞÅÏ¢
+  //æ¨¡æ‹Ÿä¸ªæ–‡ä»¶ï¼Œæ–¹ä¾¿è°ƒè¯•
+  File dataFile = SPIFFS.open("/runData/20220101" , "w");// å»ºç«‹Fileå¯¹è±¡ç”¨äºå‘SPIFFSä¸­çš„fileå¯¹è±¡ï¼ˆå³/notes.txtï¼‰å†™å…¥ä¿¡æ¯
+  dataFile.print("This is test file");       // å‘dataFileå†™å…¥å­—ç¬¦ä¸²ä¿¡æ¯
   dataFile.close();
-  saveLog("Éè±¸¿ª»ú");
-  //¸üĞÂµ±Ç°Ë÷Òı´æ´¢Êı¾İµÄ
+  saveLog("è®¾å¤‡å¼€æœº");
+  //æ›´æ–°å½“å‰ç´¢å¼•å­˜å‚¨æ•°æ®çš„
   DateTime now = rtc.now();
   time_num_mm = now.minute();
   pinMode(0 , INPUT);
   xTaskCreatePinnedToCore(
-    runData_tack                                     //´´½¨ÈÎÎñ
-    , "runData_tack"                                 //´´½¨ÈÎÎñµÄÃû³Æ
-    , 1024 * 2                                   //·ÖÅäµÄÔËĞĞ¿Õ¼ä´óĞ¡
-    , NULL                                       //ÈÎÎñ¾ä±ú
-    , 2                                           //ÈÎÎñÓÅÏÈ¼¶
-    , NULL                                        //»Øµ÷º¯Êı¾ä±ú
+    runData_tack                                     //åˆ›å»ºä»»åŠ¡
+    , "runData_tack"                                 //åˆ›å»ºä»»åŠ¡çš„åç§°
+    , 1024 * 2                                   //åˆ†é…çš„è¿è¡Œç©ºé—´å¤§å°
+    , NULL                                       //ä»»åŠ¡å¥æŸ„
+    , 2                                           //ä»»åŠ¡ä¼˜å…ˆçº§
+    , NULL                                        //å›è°ƒå‡½æ•°å¥æŸ„
     , 1);
   xTaskCreatePinnedToCore(
-    showWifi                                     //´´½¨ÈÎÎñ
-    , "showWifi"                                 //´´½¨ÈÎÎñµÄÃû³Æ
-    , 1024 * 2                                   //·ÖÅäµÄÔËĞĞ¿Õ¼ä´óĞ¡
-    , NULL                                       //ÈÎÎñ¾ä±ú
-    , 3                                           //ÈÎÎñÓÅÏÈ¼¶
-    , NULL                                        //»Øµ÷º¯Êı¾ä±ú
+    showWifi                                     //åˆ›å»ºä»»åŠ¡
+    , "showWifi"                                 //åˆ›å»ºä»»åŠ¡çš„åç§°
+    , 1024 * 2                                   //åˆ†é…çš„è¿è¡Œç©ºé—´å¤§å°
+    , NULL                                       //ä»»åŠ¡å¥æŸ„
+    , 3                                           //ä»»åŠ¡ä¼˜å…ˆçº§
+    , NULL                                        //å›è°ƒå‡½æ•°å¥æŸ„
     , 1);
 }
 
@@ -239,12 +239,12 @@ void showWifi(void* pvParameters)
       {
         if ( WiFi.status() != WL_CONNECTED )
         {
-          Serial.print("³¢ÊÔÖØĞÂÁ¬½ÓwifiÖĞ¡£¡£¡£");
+          Serial.print("å°è¯•é‡æ–°è¿æ¥wifiä¸­ã€‚ã€‚ã€‚");
           WiFi.disconnect();
           WiFi.reconnect();
         } else
         {
-          Serial.print("wifi×´Ì¬Õı³£");
+          Serial.print("wifiçŠ¶æ€æ­£å¸¸");
         }
         continue;
       }
@@ -255,23 +255,23 @@ void showWifi(void* pvParameters)
       WiFi.mode(WIFI_MODE_APSTA);
       WiFi.softAP(ssid , password);
       WiFi.begin(ssid_sta , password_sta);
-      Serial.print("ÕıÔÚ»Ö¸´wifiÁ¬½Ó£¬ÇëÉÔµÈ...");
-      int conn_try_num = 0;//³¢ÊÔÁ¬½ÓwifiµÄÊ±¼ä
+      Serial.print("æ­£åœ¨æ¢å¤wifiè¿æ¥ï¼Œè¯·ç¨ç­‰...");
+      int conn_try_num = 0;//å°è¯•è¿æ¥wifiçš„æ—¶é—´
       while ( WiFi.status() != WL_CONNECTED )
-      { // ³¢ÊÔ½øĞĞwifiÁ¬½Ó¡£
+      { // å°è¯•è¿›è¡Œwifiè¿æ¥ã€‚
         delay(1000);
         conn_try_num++;
         Serial.print(".");
         if ( conn_try_num > 30 )
         {
-          Serial.println("wifiÁ¬½Ó³¬Ê±¡£¡£¡£");
+          Serial.println("wifiè¿æ¥è¶…æ—¶ã€‚ã€‚ã€‚");
           break;
         }
       }
       if ( WiFi.status() == WL_CONNECTED )
       {
-        Serial.print("IP address:\t");            // ÒÔ¼°
-        Serial.println(WiFi.localIP());           // NodeMCUµÄIPµØÖ·
+        Serial.print("IP address:\t");            // ä»¥åŠ
+        Serial.println(WiFi.localIP());           // NodeMCUçš„IPåœ°å€
       }
 
       //vTaskDelay(10000);
@@ -454,12 +454,12 @@ void setServerTime(AsyncWebServerRequest* request)
   {
     DateTime now = rtc.now();
     int time_yymmdd[3] = { now.year() ,now.month(),now.day() };
-    //É¾³ıÁ½¸öÈÕÆÚÖ®¼äµÄËùÓĞÎÄ¼şÎÄ¼ş
+    //åˆ é™¤ä¸¤ä¸ªæ—¥æœŸä¹‹é—´çš„æ‰€æœ‰æ–‡ä»¶æ–‡ä»¶
     while ( true )
     {
       if ( time_.YY == time_yymmdd[0] && time_.MM == time_yymmdd[1] && time_.DD == time_yymmdd[2] )
       {
-        Serial.println("³É¹¦£¡£¡£¡");
+        Serial.println("æˆåŠŸï¼ï¼ï¼");
         String fileName = "/runData/";
         fileName += now.year();
         if ( now.month() < 10 )
@@ -493,12 +493,12 @@ void setServerTime(AsyncWebServerRequest* request)
         }
         if ( time_yymmdd[0] < 2022 )
         {
-          Serial.println("ÏµÍ³´íÎó£¡£¡£¡");
+          Serial.println("ç³»ç»Ÿé”™è¯¯ï¼ï¼ï¼");
           return;
         }
       }
     }
-    //Ïòºóµ÷Ê±£¬Èç¹û¿çÌìĞè¼ì²éÌø×ªµÄÊ±¼äÓĞÃ»ÓĞÎÄ¼ş
+    //å‘åè°ƒæ—¶ï¼Œå¦‚æœè·¨å¤©éœ€æ£€æŸ¥è·³è½¬çš„æ—¶é—´æœ‰æ²¡æœ‰æ–‡ä»¶
     String fileName = "/runData/";
     fileName += now.year();
     if ( now.month() < 10 )
@@ -514,24 +514,24 @@ void setServerTime(AsyncWebServerRequest* request)
     SPIFFS.remove(fileName);
     if ( !SPIFFS.exists(fileName) )
     {
-      Serial.println("µ±ÌìµÄÎÄ¼şÉ¾³ı³É¹¦");
+      Serial.println("å½“å¤©çš„æ–‡ä»¶åˆ é™¤æˆåŠŸ");
 
     } else
     {
-      Serial.println("µ±ÌìµÄÎÄ¼şÉ¾³ıÊ§°Ü");
+      Serial.println("å½“å¤©çš„æ–‡ä»¶åˆ é™¤å¤±è´¥");
       request->send(500 , "text/plain" , "FILE_DELETION_FAILED");
       ESP.restart();
     }
   } else
-  {//Ïòºóµ÷Ê±£¬Èç¹û¿çÌìĞè¼ì²éÌø×ªµÄÊ±¼äÓĞÃ»ÓĞÎÄ¼ş
+  {//å‘åè°ƒæ—¶ï¼Œå¦‚æœè·¨å¤©éœ€æ£€æŸ¥è·³è½¬çš„æ—¶é—´æœ‰æ²¡æœ‰æ–‡ä»¶
     DateTime now = rtc.now();
     if ( time_.DD != now.day() )
     {
-      Serial.println("Ïòºóµ÷Ê±£¬Èç¹û¿çÌìĞè¼ì²éÌø×ªµÄÊ±¼äÓĞÃ»ÓĞÎÄ¼ş£¡£¡£¡");
+      Serial.println("å‘åè°ƒæ—¶ï¼Œå¦‚æœè·¨å¤©éœ€æ£€æŸ¥è·³è½¬çš„æ—¶é—´æœ‰æ²¡æœ‰æ–‡ä»¶ï¼ï¼ï¼");
       return;
     } else
     {
-      Serial.println("Î´¿çÌì£¡£¡£¡");
+      Serial.println("æœªè·¨å¤©ï¼ï¼ï¼");
       return;
     }
   }*/
@@ -551,12 +551,12 @@ void setServerTime(AsyncWebServerRequest* request)
   DATE += time_.YY;
   Serial.println(DATE);
   Serial.println(time_.time);
-  Serial.print("Ğ´ÈëÊı¾İDATE:");
+  Serial.print("å†™å…¥æ•°æ®DATE:");
   Serial.println(DATE);
-  Serial.print("Ğ´ÈëÊı¾İTIME:");
+  Serial.print("å†™å…¥æ•°æ®TIME:");
   Serial.println(time_.time);
   rtc.adjust(DateTime(DATE.c_str() , time_.time.c_str()));
-  Serial.print("ÉèÖÃÊ±¼ä:³É¹¦");
+  Serial.print("è®¾ç½®æ—¶é—´:æˆåŠŸ");
   /*if ( deldata == 1 )
   {
     ESP.restart();
@@ -570,7 +570,7 @@ void sendRunData(AsyncWebServerRequest* request)
   if ( request->hasArg("date") )
   {
     reqDate += request->arg("date");
-    Serial.print("ÇëÇóÀÏÊóÅÜ¶¯Êı¾İ:");
+    Serial.print("è¯·æ±‚è€é¼ è·‘åŠ¨æ•°æ®:");
 
     Serial.println(reqDate);
 
@@ -584,7 +584,7 @@ void sendHumiture(AsyncWebServerRequest* request)
   if ( request->hasArg("date") )
   {
     reqDate += request->arg("date");
-    Serial.print("ÇëÇóÎÂÊª¶ÈÊı¾İ");
+    Serial.print("è¯·æ±‚æ¸©æ¹¿åº¦æ•°æ®");
     Serial.println(reqDate);
     request->send(200 , "text/plain" , sendData_humiture(reqDate));
   }
@@ -603,7 +603,7 @@ void getVerificationCode(AsyncWebServerRequest* request)
 {
   VerificationCode_.state = true;
   VerificationCode_.code = random(100000,999999);
-  Serial.print("ÑéÖ¤Âë:");
+  Serial.print("éªŒè¯ç :");
   Serial.println(VerificationCode_.code);
   request->send(200);
 }
@@ -611,7 +611,7 @@ void getVerificationCode(AsyncWebServerRequest* request)
 void restoreFactorySet(AsyncWebServerRequest* request)
 {
   uint32_t code = request->arg("code").toInt();
-  Serial.print("ÓÃ»§ÊäÈëÑéÖ¤Âë:");
+  Serial.print("ç”¨æˆ·è¾“å…¥éªŒè¯ç :");
   Serial.println(code);
   if ( VerificationCode_.state && code== VerificationCode_.code )
   {
@@ -638,7 +638,7 @@ String getAllFileName()
     i++;
     if ( !entry )
     {
-      // Èç¹ûÃ»ÓĞÎÄ¼şÔòÌø³öÑ­»·
+      // å¦‚æœæ²¡æœ‰æ–‡ä»¶åˆ™è·³å‡ºå¾ªç¯
       break;
     }
     String data = entry.name();
@@ -661,24 +661,24 @@ uint8_t getEnergy()
 {
   //max4.2 min2.7
   int adNum = analogRead(DUMP_ENERGY_PIN);
-  //Ó³Éä³öµçÑ¹
+  //æ˜ å°„å‡ºç”µå‹
   uint8_t voltage = map(adNum , 0 , 4095 , 0 , 33);
   if ( !( 27 <= voltage * 2 && voltage * 2 <= 42 ) )
   {
-    Serial.print("µçÑ¹Êµ¼Ê¶ÁÊı£º");
+    Serial.print("ç”µå‹å®é™…è¯»æ•°ï¼š");
     Serial.print(voltage);
     Serial.println("V");
-    return 101;//·µ»Ø´íÎóÖµ
+    return 101;//è¿”å›é”™è¯¯å€¼
   }
   return map(voltage * 2 , 27 , 42 , 0 , 100);
 }
 
-//Ïò¿Í»§¶Ë·¢ËÍÀÏÊóÅÜ¶¯µÄÊı¾İ
+//å‘å®¢æˆ·ç«¯å‘é€è€é¼ è·‘åŠ¨çš„æ•°æ®
 String sendData_mouseRun(String date)
 {
   //if ( date.length()!=11 )//hhhhmmdd@hh
   //{
-  //    Serial.println("ÇëÇóÈÕÆÚÓĞÎó");
+  //    Serial.println("è¯·æ±‚æ—¥æœŸæœ‰è¯¯");
   //    return "err:Incorrect request date";
   //}
   if ( SPIFFS.exists(date) )
@@ -699,12 +699,12 @@ String sendData_mouseRun(String date)
   }
 }
 
-//Ïò¿Í»§¶Ë·¢ËÍÎÂÊª¶ÈÊı¾İ
+//å‘å®¢æˆ·ç«¯å‘é€æ¸©æ¹¿åº¦æ•°æ®
 String sendData_humiture(String date)
 {
   //if ( date.length() != 8 )//hhhhmmdd
   //{
-  //    Serial.println("ÇëÇóÈÕÆÚÓĞÎó");
+  //    Serial.println("è¯·æ±‚æ—¥æœŸæœ‰è¯¯");
   //    return "err:Incorrect request date";
   //}
   if ( SPIFFS.exists(date) )
@@ -724,26 +724,26 @@ String sendData_humiture(String date)
   }
 }
 
-//±£´æÀÏÊóÅÜ¶¯µÄÊı¾İ
+//ä¿å­˜è€é¼ è·‘åŠ¨çš„æ•°æ®
 void savaRunData()
 {
-  //±ØĞë½áÊøÖĞ¶Ï£¬·ñÔòÈİÒ×±»¹·¸´Î»
+  //å¿…é¡»ç»“æŸä¸­æ–­ï¼Œå¦åˆ™å®¹æ˜“è¢«ç‹—å¤ä½
 
-  Serial.print("ÉÁ´æÊ£Óà¿Õ¼ä: ");
+  Serial.print("é—ªå­˜å‰©ä½™ç©ºé—´: ");
   int freeSpace = SPIFFS.totalBytes() - SPIFFS.usedBytes();
   Serial.print(freeSpace);
   Serial.println(" Bytes");
   if ( freeSpace < 3000 )
   {
-    Serial.println("´æ´¢¿Õ¼ä¸æ¼±£¡£¡£¡");
+    Serial.println("å­˜å‚¨ç©ºé—´å‘Šæ€¥ï¼ï¼ï¼");
   } else if ( freeSpace < 1500 )
   {
-    Serial.println("´æ´¢¿Õ¼äÒÑ¾­ÓÃ¾¡£¬ÇëÊÖ¶¯ÇåÀí£¡£¡£¡");
+    Serial.println("å­˜å‚¨ç©ºé—´å·²ç»ç”¨å°½ï¼Œè¯·æ‰‹åŠ¨æ¸…ç†ï¼ï¼ï¼");
     return;
   } else
   {
-    //Serial.println("´æ´¢¿Õ¼ä³ä×ã£¡£¡£¡");
-    showData("´æ´¢¿Õ¼ä³ä×ã£¡£¡£¡" , true);
+    //Serial.println("å­˜å‚¨ç©ºé—´å……è¶³ï¼ï¼ï¼");
+    showData("å­˜å‚¨ç©ºé—´å……è¶³ï¼ï¼ï¼" , true);
   }
   String runData;
 
@@ -792,10 +792,10 @@ void savaRunData()
   fileName += hh_test;
 #endif // test
 
-  /* Serial.print("µ±Ç°ÀÏÊóÅÜ¶¯µÄÊı¾İ´æ´¢ÎÄ¼şÃû£º");
+  /* Serial.print("å½“å‰è€é¼ è·‘åŠ¨çš„æ•°æ®å­˜å‚¨æ–‡ä»¶åï¼š");
    Serial.println(fileName);*/
 
-  showData("µ±Ç°ÀÏÊóÅÜ¶¯µÄÊı¾İ´æ´¢ÎÄ¼şÃû£º" , true , false);
+  showData("å½“å‰è€é¼ è·‘åŠ¨çš„æ•°æ®å­˜å‚¨æ–‡ä»¶åï¼š" , true , false);
   showData(fileName , true);
   doc["dataType"] = "runData";
   doc["date"] = fileName;//hhhhyydd@hh
@@ -835,32 +835,32 @@ void savaRunData()
   //Serial.println(fileName);
   //Serial.println(runData);
   showData(runData , true);
-  File dataFile = SPIFFS.open(fileName , "w");// ½¨Á¢File¶ÔÏóÓÃÓÚÏòSPIFFSÖĞµÄfile¶ÔÏó£¨¼´/notes.txt£©Ğ´ÈëĞÅÏ¢
-  dataFile.println(runData);       // ÏòdataFileĞ´Èë×Ö·û´®ĞÅÏ¢
+  File dataFile = SPIFFS.open(fileName , "w");// å»ºç«‹Fileå¯¹è±¡ç”¨äºå‘SPIFFSä¸­çš„fileå¯¹è±¡ï¼ˆå³/notes.txtï¼‰å†™å…¥ä¿¡æ¯
+  dataFile.println(runData);       // å‘dataFileå†™å…¥å­—ç¬¦ä¸²ä¿¡æ¯
   dataFile.close();
 
   saveLog("savaRunData");
 }
 
-//±£´æÎÂÊª¶È
+//ä¿å­˜æ¸©æ¹¿åº¦
 void saveHumitureData()
 {
-  //±ØĞë½áÊøÖĞ¶Ï£¬·ñÔòÈİÒ×±»¹·¸´Î»
+  //å¿…é¡»ç»“æŸä¸­æ–­ï¼Œå¦åˆ™å®¹æ˜“è¢«ç‹—å¤ä½
 
-  Serial.print("ÉÁ´æÊ£Óà¿Õ¼ä: ");
+  Serial.print("é—ªå­˜å‰©ä½™ç©ºé—´: ");
   int freeSpace = SPIFFS.totalBytes() - SPIFFS.usedBytes();
   Serial.print(freeSpace);
   Serial.println(" Bytes");
   if ( freeSpace < 3000 )
   {
-    Serial.println("´æ´¢¿Õ¼ä¸æ¼±£¡£¡£¡");
+    Serial.println("å­˜å‚¨ç©ºé—´å‘Šæ€¥ï¼ï¼ï¼");
   } else if ( freeSpace < 1500 )
   {
-    Serial.println("´æ´¢¿Õ¼äÒÑ¾­ÓÃ¾¡£¬ÇëÊÖ¶¯ÇåÀí£¡£¡£¡");
+    Serial.println("å­˜å‚¨ç©ºé—´å·²ç»ç”¨å°½ï¼Œè¯·æ‰‹åŠ¨æ¸…ç†ï¼ï¼ï¼");
     return;
   } else
   {
-    Serial.println("´æ´¢¿Õ¼ä³ä×ã£¡£¡£¡");
+    Serial.println("å­˜å‚¨ç©ºé—´å……è¶³ï¼ï¼ï¼");
   }
 
   String runData;
@@ -903,7 +903,7 @@ void saveHumitureData()
   fileName += dd_test;
 
 #endif // test
-  Serial.print("µ±Ç°ÎÂÊª¶ÈµÄÊı¾İ´æ´¢ÎÄ¼şÃû£º");
+  Serial.print("å½“å‰æ¸©æ¹¿åº¦çš„æ•°æ®å­˜å‚¨æ–‡ä»¶åï¼š");
   Serial.println(fileName);
   doc["dataType"] = "humitureData";
   doc["date"] = fileName;//hhhhmmdd
@@ -923,8 +923,8 @@ void saveHumitureData()
 
   Serial.println(fileName);
   Serial.println(runData);
-  File dataFile = SPIFFS.open(fileName , "w");// ½¨Á¢File¶ÔÏóÓÃÓÚÏòSPIFFSÖĞµÄfile¶ÔÏó£¨¼´/notes.txt£©Ğ´ÈëĞÅÏ¢
-  dataFile.println(runData);       // ÏòdataFileĞ´Èë×Ö·û´®ĞÅÏ¢
+  File dataFile = SPIFFS.open(fileName , "w");// å»ºç«‹Fileå¯¹è±¡ç”¨äºå‘SPIFFSä¸­çš„fileå¯¹è±¡ï¼ˆå³/notes.txtï¼‰å†™å…¥ä¿¡æ¯
+  dataFile.println(runData);       // å‘dataFileå†™å…¥å­—ç¬¦ä¸²ä¿¡æ¯
   dataFile.close();
 
 
@@ -947,16 +947,16 @@ void loop()
     }
   }
 #ifndef test
-  delay(60 * 1000);//µÈ´ıÒ»·ÖÖÓ
+  delay(60 * 1000);//ç­‰å¾…ä¸€åˆ†é’Ÿ
   wifiConnNum++;
-  if ( wifiConnNum >= 5 )//wifiÁ¬½Ó5·ÖÖÓ×Ô¶¯¹Ø±Õ
+  if ( wifiConnNum >= 5 )//wifiè¿æ¥5åˆ†é’Ÿè‡ªåŠ¨å…³é—­
   {
     if ( WiFi.getMode() != WIFI_MODE_NULL )
     {
-      Serial.println("¶Ï¿ªwifi");
-      WiFi.disconnect();//¶Ï¿ªwifi
-      WiFi.mode(WIFI_MODE_NULL);//wifiÄ£Ê½Îª²»Á¬½Ó
-      WiFi.setSleep(true);//wifi¿ªÊ¼ĞİÃß
+      Serial.println("æ–­å¼€wifi");
+      WiFi.disconnect();//æ–­å¼€wifi
+      WiFi.mode(WIFI_MODE_NULL);//wifiæ¨¡å¼ä¸ºä¸è¿æ¥
+      WiFi.setSleep(true);//wifiå¼€å§‹ä¼‘çœ 
       wifiConnNum = 0;
     }
 
@@ -964,13 +964,13 @@ void loop()
   if ( runData1 == 0 && runData2 == 0 && runData3 == 0 && runData4 == 0 )
   {
     mouseRestTime++;
-    Serial.print("ÕâÒ»·ÖÖÓÀÏÊóÃ»ÓĞÅÜ¶¯£¬Èç¹û¸Ã×´Ì¬³ÖĞø£¬Éè±¸½«ÔÚ");
+    Serial.print("è¿™ä¸€åˆ†é’Ÿè€é¼ æ²¡æœ‰è·‘åŠ¨ï¼Œå¦‚æœè¯¥çŠ¶æ€æŒç»­ï¼Œè®¾å¤‡å°†åœ¨");
     Serial.print(SLEEPTIME - mouseRestTime);
-    Serial.println("·ÖÖÓºóĞİÃß");
+    Serial.println("åˆ†é’Ÿåä¼‘çœ ");
   } else
   {
     mouseRestTime = 0;
-    /*Serial.println("ÕâÒ»·ÖÖÓÀÏÊóÃ»ÓĞÅÜ¶¯");*/
+    /*Serial.println("è¿™ä¸€åˆ†é’Ÿè€é¼ æ²¡æœ‰è·‘åŠ¨");*/
     DateTime now = rtc.now();
     String nowTimeStr = "";
     nowTimeStr += now.year();
@@ -984,35 +984,35 @@ void loop()
     nowTimeStr += now.minute();
     nowTimeStr += ":";
     nowTimeStr += now.second();
-    String sData_t = "Ê±¼ä:";
+    String sData_t = "æ—¶é—´:";
     sData_t += nowTimeStr;
     //free(nowTimeStr);
     //nowTimeStr = NULL;
-    sData_t += "\tÅÜÂÖ1Êı¾İ£º";
+    sData_t += "\tè·‘è½®1æ•°æ®ï¼š";
     sData_t += runData1;
-    sData_t += "\tÅÜÂÖ2Êı¾İ£º";
+    sData_t += "\tè·‘è½®2æ•°æ®ï¼š";
     sData_t += runData2;
-    sData_t += "\tÅÜÂÖ3Êı¾İ£º";
+    sData_t += "\tè·‘è½®3æ•°æ®ï¼š";
     sData_t += runData3;
-    sData_t += "\tÅÜÂÖ4Êı¾İ£º";
+    sData_t += "\tè·‘è½®4æ•°æ®ï¼š";
     sData_t += runData4;
     showData(sData_t , true);
-    //Ğ´ÈëÎÄ¼ş
-    Serial.print("ÉÁ´æÊ£Óà¿Õ¼ä: ");
+    //å†™å…¥æ–‡ä»¶
+    Serial.print("é—ªå­˜å‰©ä½™ç©ºé—´: ");
     int freeSpace = SPIFFS.totalBytes() - SPIFFS.usedBytes();
     Serial.print(freeSpace);
     Serial.println(" Bytes");
     if ( freeSpace < 3000 )
     {
-      Serial.println("´æ´¢¿Õ¼ä¸æ¼±£¡£¡£¡");
+      Serial.println("å­˜å‚¨ç©ºé—´å‘Šæ€¥ï¼ï¼ï¼");
     } else if ( freeSpace < 1500 )
     {
-      Serial.println("´æ´¢¿Õ¼äÒÑ¾­ÓÃ¾¡£¬ÇëÊÖ¶¯ÇåÀí£¡£¡£¡");
+      Serial.println("å­˜å‚¨ç©ºé—´å·²ç»ç”¨å°½ï¼Œè¯·æ‰‹åŠ¨æ¸…ç†ï¼ï¼ï¼");
       return;
     } else
     {
-      //Serial.println("´æ´¢¿Õ¼ä³ä×ã£¡£¡£¡");
-      showData("´æ´¢¿Õ¼ä³ä×ã£¡£¡£¡" , true);
+      //Serial.println("å­˜å‚¨ç©ºé—´å……è¶³ï¼ï¼ï¼");
+      showData("å­˜å‚¨ç©ºé—´å……è¶³ï¼ï¼ï¼" , true);
     }
 
     String fileName = "/runData/";
@@ -1028,7 +1028,7 @@ void loop()
     }
     fileName += now.day();
 
-    Serial.print("µ±Ç°²Ù×÷µÄÎÄ¼ş£º");
+    Serial.print("å½“å‰æ“ä½œçš„æ–‡ä»¶ï¼š");
     Serial.println(fileName);
 
     if ( now.day() != nowWriteDay )
@@ -1065,7 +1065,7 @@ void loop()
         {
           th.add(0);
           th.add(0);
-          Serial.println("¶ÁÈ¡ÎÂÊª¶ÈÒì³££¡");
+          Serial.println("è¯»å–æ¸©æ¹¿åº¦å¼‚å¸¸ï¼");
         } else
         {
           th.add(t);
@@ -1076,18 +1076,18 @@ void loop()
         serializeJson(doc , outData);
         outData += "@";
         nowWriteDay = now.day();
-        //ĞÂµÄÒ»Ìì
-        showData("ĞÂµÄÒ»Ìì£¡£¡£¡" , true);
-        Serial.print("Ğ´ÈëÊı¾İ£º");
+        //æ–°çš„ä¸€å¤©
+        showData("æ–°çš„ä¸€å¤©ï¼ï¼ï¼" , true);
+        Serial.print("å†™å…¥æ•°æ®ï¼š");
         Serial.println(outData);
-        File dataFile = SPIFFS.open(fileName , "w");// ½¨Á¢File¶ÔÏóÓÃÓÚÏòSPIFFSÖĞµÄfile¶ÔÏó£¨¼´/notes.txt£©Ğ´ÈëĞÅÏ¢
-        dataFile.print(outData);       // ÏòdataFileĞ´Èë×Ö·û´®ĞÅÏ¢
+        File dataFile = SPIFFS.open(fileName , "w");// å»ºç«‹Fileå¯¹è±¡ç”¨äºå‘SPIFFSä¸­çš„fileå¯¹è±¡ï¼ˆå³/notes.txtï¼‰å†™å…¥ä¿¡æ¯
+        dataFile.print(outData);       // å‘dataFileå†™å…¥å­—ç¬¦ä¸²ä¿¡æ¯
         dataFile.close();
 
       } else
       {
 
-        Serial.println("¸Õ¸Õ¿ª»ú£¬µÚÒ»´ÎĞ´Èë");
+        Serial.println("åˆšåˆšå¼€æœºï¼Œç¬¬ä¸€æ¬¡å†™å…¥");
         String outData = "";
         StaticJsonDocument<192> doc;
 
@@ -1127,12 +1127,12 @@ void loop()
         serializeJson(doc , outData);
         outData += "@";
         nowWriteDay = now.day();
-        //ÌìÊıÃ»ÓĞ·¢Éú±ä»¯
-        showData("¼ÌĞøĞ´ÕâÒ»Ìì£¡£¡£¡" , true);
-        Serial.print("Ğ´ÈëÊı¾İ£º");
+        //å¤©æ•°æ²¡æœ‰å‘ç”Ÿå˜åŒ–
+        showData("ç»§ç»­å†™è¿™ä¸€å¤©ï¼ï¼ï¼" , true);
+        Serial.print("å†™å…¥æ•°æ®ï¼š");
         Serial.println(outData);
-        File dataFile = SPIFFS.open(fileName , "a");// ½¨Á¢File¶ÔÏóÓÃÓÚÏòSPIFFSÖĞµÄfile¶ÔÏó£¨¼´/notes.txt£©Ğ´ÈëĞÅÏ¢
-        dataFile.print(outData);       // ÏòdataFileĞ´Èë×Ö·û´®ĞÅÏ¢
+        File dataFile = SPIFFS.open(fileName , "a");// å»ºç«‹Fileå¯¹è±¡ç”¨äºå‘SPIFFSä¸­çš„fileå¯¹è±¡ï¼ˆå³/notes.txtï¼‰å†™å…¥ä¿¡æ¯
+        dataFile.print(outData);       // å‘dataFileå†™å…¥å­—ç¬¦ä¸²ä¿¡æ¯
         dataFile.close();
       }
     } else
@@ -1178,17 +1178,17 @@ void loop()
         serializeJson(doc , outData);
         outData += "@";
         nowWriteDay = now.day();
-        //ÌìÊıÃ»ÓĞ·¢Éú±ä»¯
-        showData("¼ÌĞøĞ´ÕâÒ»Ìì£¡£¡£¡" , true);
-        Serial.print("Ğ´ÈëÊı¾İ£º");
+        //å¤©æ•°æ²¡æœ‰å‘ç”Ÿå˜åŒ–
+        showData("ç»§ç»­å†™è¿™ä¸€å¤©ï¼ï¼ï¼" , true);
+        Serial.print("å†™å…¥æ•°æ®ï¼š");
         Serial.println(outData);
-        File dataFile = SPIFFS.open(fileName , "a");// ½¨Á¢File¶ÔÏóÓÃÓÚÏòSPIFFSÖĞµÄfile¶ÔÏó£¨¼´/notes.txt£©Ğ´ÈëĞÅÏ¢
-        dataFile.print(outData);       // ÏòdataFileĞ´Èë×Ö·û´®ĞÅÏ¢
+        File dataFile = SPIFFS.open(fileName , "a");// å»ºç«‹Fileå¯¹è±¡ç”¨äºå‘SPIFFSä¸­çš„fileå¯¹è±¡ï¼ˆå³/notes.txtï¼‰å†™å…¥ä¿¡æ¯
+        dataFile.print(outData);       // å‘dataFileå†™å…¥å­—ç¬¦ä¸²ä¿¡æ¯
         dataFile.close();
       } else
       {
-        Serial.println("ÏµÍ³Ğ´ÈëÎÄ¼ş£¬Ğ§ÑéÊ±¼ä³ö´í");
-        saveLog("ÏµÍ³Ğ´ÈëÎÄ¼ş£¬Ğ§ÑéÊ±¼ä³ö´í");
+        Serial.println("ç³»ç»Ÿå†™å…¥æ–‡ä»¶ï¼Œæ•ˆéªŒæ—¶é—´å‡ºé”™");
+        saveLog("ç³»ç»Ÿå†™å…¥æ–‡ä»¶ï¼Œæ•ˆéªŒæ—¶é—´å‡ºé”™");
       }
     }
 
@@ -1197,37 +1197,37 @@ void loop()
   }
   if ( mouseRestTime >= SLEEPTIME )
   {
-    Serial.println("Éè±¸¼´½«ĞİÃß");
-    saveLog("Éè±¸ĞİÃß");
+    Serial.println("è®¾å¤‡å³å°†ä¼‘çœ ");
+    saveLog("è®¾å¤‡ä¼‘çœ ");
 
     if ( WiFi.getMode() != WIFI_MODE_NULL )
     {
-      Serial.println("¶Ï¿ªwifi");
-      WiFi.disconnect();//¶Ï¿ªwifi
-      WiFi.mode(WIFI_MODE_NULL);//wifiÄ£Ê½Îª²»Á¬½Ó
-      WiFi.setSleep(true);//wifi¿ªÊ¼ĞİÃß
+      Serial.println("æ–­å¼€wifi");
+      WiFi.disconnect();//æ–­å¼€wifi
+      WiFi.mode(WIFI_MODE_NULL);//wifiæ¨¡å¼ä¸ºä¸è¿æ¥
+      WiFi.setSleep(true);//wifiå¼€å§‹ä¼‘çœ 
       wifiConnNum = 0;
     }
 
-    //½øÈëµÍ¹¦ºÄÄ£Ê½
-    esp_sleep_enable_ext0_wakeup(GPIO_NUM_33 , 0);//ÉèÖÃÍâ²¿°´¼ü»½ĞÑ
+    //è¿›å…¥ä½åŠŸè€—æ¨¡å¼
+    esp_sleep_enable_ext0_wakeup(GPIO_NUM_33 , 0);//è®¾ç½®å¤–éƒ¨æŒ‰é”®å”¤é†’
     delay(1000);
-    esp_light_sleep_start();//¿ªÊ¼Ë¯Ãß
+    esp_light_sleep_start();//å¼€å§‹ç¡çœ 
     //Serial.println(esp_sleep_get_wakeup_cause());
-    String log_ = "Éè±¸±»»½ĞÑ£¬»½ĞÑÀàĞÍ@";
+    String log_ = "è®¾å¤‡è¢«å”¤é†’ï¼Œå”¤é†’ç±»å‹@";
     log_ += esp_sleep_get_wakeup_cause();
     saveLog(log_);
-    Serial.print("Éè±¸±»»½ĞÑ@");
-    DateTime now1 = rtc.now();//¸üĞÂÊ±¼ä
-      //Ê±ÖÓ»½ĞÑ
-    switch ( esp_sleep_get_wakeup_cause() ) //»ñÈ¡»½ĞÑÔ­Òò
+    Serial.print("è®¾å¤‡è¢«å”¤é†’@");
+    DateTime now1 = rtc.now();//æ›´æ–°æ—¶é—´
+      //æ—¶é’Ÿå”¤é†’
+    switch ( esp_sleep_get_wakeup_cause() ) //è·å–å”¤é†’åŸå› 
     {
-      case ESP_SLEEP_WAKEUP_TIMER: Serial.println("Í¨¹ı¶¨Ê±Æ÷»½ĞÑ"); break;
-      case ESP_SLEEP_WAKEUP_TOUCHPAD: Serial.println("Í¨¹ı´¥Ãş»½ĞÑ"); break;
-      case ESP_SLEEP_WAKEUP_EXT0: Serial.println("Ê¹ÓÃ RTC_IO µÄÍâ²¿ĞÅºÅÒıÆğµÄ»½ĞÑ"); break;
-      case ESP_SLEEP_WAKEUP_EXT1: Serial.println("Ê¹ÓÃ RTC_CNTL µÄÍâ²¿ĞÅºÅÒıÆğµÄ»½ĞÑ"); break;
-      case ESP_SLEEP_WAKEUP_ULP: Serial.println("Í¨¹ıULP»½ĞÑ"); break;
-      default: Serial.println("²¢·Ç´ÓDeepSleepÖĞ»½ĞÑ"); break;
+      case ESP_SLEEP_WAKEUP_TIMER: Serial.println("é€šè¿‡å®šæ—¶å™¨å”¤é†’"); break;
+      case ESP_SLEEP_WAKEUP_TOUCHPAD: Serial.println("é€šè¿‡è§¦æ‘¸å”¤é†’"); break;
+      case ESP_SLEEP_WAKEUP_EXT0: Serial.println("ä½¿ç”¨ RTC_IO çš„å¤–éƒ¨ä¿¡å·å¼•èµ·çš„å”¤é†’"); break;
+      case ESP_SLEEP_WAKEUP_EXT1: Serial.println("ä½¿ç”¨ RTC_CNTL çš„å¤–éƒ¨ä¿¡å·å¼•èµ·çš„å”¤é†’"); break;
+      case ESP_SLEEP_WAKEUP_ULP: Serial.println("é€šè¿‡ULPå”¤é†’"); break;
+      default: Serial.println("å¹¶éä»DeepSleepä¸­å”¤é†’"); break;
     }
     //time_num_mm = now1.minute();
   }
@@ -1237,16 +1237,16 @@ void loop()
   time_num_mm++;
 
 #ifdef test
-  delay(1000);//µÈ´ıÒ»·ÖÖÓ
+  delay(1000);//ç­‰å¾…ä¸€åˆ†é’Ÿ
   wifiConnNum++;
-  if ( wifiConnNum >= 30 )//wifiÁ¬½Ó5·ÖÖÓ×Ô¶¯¹Ø±Õ
+  if ( wifiConnNum >= 30 )//wifiè¿æ¥5åˆ†é’Ÿè‡ªåŠ¨å…³é—­
   {
     if ( WiFi.getMode() != WIFI_MODE_NULL )
     {
-      Serial.println("¶Ï¿ªwifi");
-      WiFi.disconnect();//¶Ï¿ªwifi
-      WiFi.mode(WIFI_MODE_NULL);//wifiÄ£Ê½Îª²»Á¬½Ó
-      WiFi.setSleep(true);//wifi¿ªÊ¼ĞİÃß
+      Serial.println("æ–­å¼€wifi");
+      WiFi.disconnect();//æ–­å¼€wifi
+      WiFi.mode(WIFI_MODE_NULL);//wifiæ¨¡å¼ä¸ºä¸è¿æ¥
+      WiFi.setSleep(true);//wifiå¼€å§‹ä¼‘çœ 
       wifiConnNum = 0;
     }
 
@@ -1260,15 +1260,15 @@ void loop()
   }
   if ( mouseRestTime >= 15 )
   {
-    Serial.println("Éè±¸¼´½«ĞİÃß");
+    Serial.println("è®¾å¤‡å³å°†ä¼‘çœ ");
 
     DateTime now = rtc.now();
     int nowMinute = now.minute();
     int timeNum = 60 - nowMinute;
     Serial.print(timeNum - 1);
-    Serial.println("·ÖÖÓºó×Ô¶¯»½ĞÑ");
+    Serial.println("åˆ†é’Ÿåè‡ªåŠ¨å”¤é†’");
     mouseRestTime = 0;
-    //½«ÕâÒ»¸öÊ±¼äµãºóµÄËùÒÔÊı¾İÌî³äÎª0
+    //å°†è¿™ä¸€ä¸ªæ—¶é—´ç‚¹åçš„æ‰€ä»¥æ•°æ®å¡«å……ä¸º0
     for ( size_t i = nowMinute; i < timeNum; i++ )
     {
       sendRunData_R[0][nowMinute - 1] = 0;
@@ -1276,56 +1276,56 @@ void loop()
       sendRunData_R[2][nowMinute - 1] = 0;
       sendRunData_R[3][nowMinute - 1] = 0;
     }
-    //½øÈëµÍ¹¦ºÄÄ£Ê½
-    esp_sleep_enable_ext0_wakeup(GPIO_NUM_33 , 0);//ÉèÖÃÍâ²¿°´¼ü»½ĞÑ
-    esp_sleep_enable_timer_wakeup(( (uint64_t) (timeNum) -1 ) * 60 * 1000 * 1000);//Èç¹ûÃ»ÓĞ±»Íâ²¿´¥·¢µ½ÕâÒ»¸öĞ¡Ê±µÄ59·Ö×Ô¶¯»½ĞÑ£¬ÒÑ±£³ÖÕâÒ»¸öĞ¡Ê±µÄÊı¾İ
+    //è¿›å…¥ä½åŠŸè€—æ¨¡å¼
+    esp_sleep_enable_ext0_wakeup(GPIO_NUM_33 , 0);//è®¾ç½®å¤–éƒ¨æŒ‰é”®å”¤é†’
+    esp_sleep_enable_timer_wakeup(( (uint64_t) (timeNum) -1 ) * 60 * 1000 * 1000);//å¦‚æœæ²¡æœ‰è¢«å¤–éƒ¨è§¦å‘åˆ°è¿™ä¸€ä¸ªå°æ—¶çš„59åˆ†è‡ªåŠ¨å”¤é†’ï¼Œå·²ä¿æŒè¿™ä¸€ä¸ªå°æ—¶çš„æ•°æ®
     delay(1000);
-    esp_light_sleep_start();//¿ªÊ¼Ë¯Ãß
+    esp_light_sleep_start();//å¼€å§‹ç¡çœ 
     //Serial.println(esp_sleep_get_wakeup_cause());
-    Serial.print("Éè±¸±»»½ĞÑ@");
-    DateTime now1 = rtc.now();//¸üĞÂÊ±¼ä
+    Serial.print("è®¾å¤‡è¢«å”¤é†’@");
+    DateTime now1 = rtc.now();//æ›´æ–°æ—¶é—´
     if ( now.minute() > now1.minute() )
     {
-      //Ê±ÖÓ»½ĞÑ
-      switch ( esp_sleep_get_wakeup_cause() ) //»ñÈ¡»½ĞÑÔ­Òò
+      //æ—¶é’Ÿå”¤é†’
+      switch ( esp_sleep_get_wakeup_cause() ) //è·å–å”¤é†’åŸå› 
 
       {
 
-        case ESP_SLEEP_WAKEUP_TIMER: Serial.println("Í¨¹ı¶¨Ê±Æ÷»½ĞÑ"); break;
+        case ESP_SLEEP_WAKEUP_TIMER: Serial.println("é€šè¿‡å®šæ—¶å™¨å”¤é†’"); break;
 
-        case ESP_SLEEP_WAKEUP_TOUCHPAD: Serial.println("Í¨¹ı´¥Ãş»½ĞÑ"); break;
+        case ESP_SLEEP_WAKEUP_TOUCHPAD: Serial.println("é€šè¿‡è§¦æ‘¸å”¤é†’"); break;
 
-        case ESP_SLEEP_WAKEUP_EXT0: Serial.println("Í¨¹ıEXT0»½ĞÑ"); break;
+        case ESP_SLEEP_WAKEUP_EXT0: Serial.println("é€šè¿‡EXT0å”¤é†’"); break;
 
-        case ESP_SLEEP_WAKEUP_EXT1: Serial.println("Í¨¹ıEXT1»½ĞÑ"); break;
+        case ESP_SLEEP_WAKEUP_EXT1: Serial.println("é€šè¿‡EXT1å”¤é†’"); break;
 
-        case ESP_SLEEP_WAKEUP_ULP: Serial.println("Í¨¹ıULP»½ĞÑ"); break;
+        case ESP_SLEEP_WAKEUP_ULP: Serial.println("é€šè¿‡ULPå”¤é†’"); break;
 
-        default: Serial.println("²¢·Ç´ÓDeepSleepÖĞ»½ĞÑ"); break;
+        default: Serial.println("å¹¶éä»DeepSleepä¸­å”¤é†’"); break;
 
       }
       time_num_mm = now1.minute();
   } else
     {
-      //Íâ²¿»½ĞÑ
-      switch ( esp_sleep_get_wakeup_cause() ) //»ñÈ¡»½ĞÑÔ­Òò
+      //å¤–éƒ¨å”¤é†’
+      switch ( esp_sleep_get_wakeup_cause() ) //è·å–å”¤é†’åŸå› 
 
       {
 
-        case ESP_SLEEP_WAKEUP_TIMER: Serial.println("Í¨¹ı¶¨Ê±Æ÷»½ĞÑ"); break;
+        case ESP_SLEEP_WAKEUP_TIMER: Serial.println("é€šè¿‡å®šæ—¶å™¨å”¤é†’"); break;
 
-        case ESP_SLEEP_WAKEUP_TOUCHPAD: Serial.println("Í¨¹ı´¥Ãş»½ĞÑ"); break;
+        case ESP_SLEEP_WAKEUP_TOUCHPAD: Serial.println("é€šè¿‡è§¦æ‘¸å”¤é†’"); break;
 
-        case ESP_SLEEP_WAKEUP_EXT0: Serial.println("Í¨¹ıEXT0»½ĞÑ"); break;
+        case ESP_SLEEP_WAKEUP_EXT0: Serial.println("é€šè¿‡EXT0å”¤é†’"); break;
 
-        case ESP_SLEEP_WAKEUP_EXT1: Serial.println("Í¨¹ıEXT1»½ĞÑ"); break;
+        case ESP_SLEEP_WAKEUP_EXT1: Serial.println("é€šè¿‡EXT1å”¤é†’"); break;
 
-        case ESP_SLEEP_WAKEUP_ULP: Serial.println("Í¨¹ıULP»½ĞÑ"); break;
+        case ESP_SLEEP_WAKEUP_ULP: Serial.println("é€šè¿‡ULPå”¤é†’"); break;
 
-        default: Serial.println("²¢·Ç´ÓDeepSleepÖĞ»½ĞÑ"); break;
+        default: Serial.println("å¹¶éä»DeepSleepä¸­å”¤é†’"); break;
 
       }
-      //±£´æÉÏÒ»¸öĞ¡Ê±µÄÊı¾İ
+      //ä¿å­˜ä¸Šä¸€ä¸ªå°æ—¶çš„æ•°æ®
       time_num_mm = now1.minute();
     }
 }
@@ -1348,13 +1348,13 @@ void loop()
 
   runData1 = 0 , runData2 = 0 , runData3 = 0 , runData4 = 0;
 
-  /*if ( time_num_mm >= 59 )//Êı¾İÁ¿´ïµ½Ò»Ğ¡Ê±
+  /*if ( time_num_mm >= 59 )//æ•°æ®é‡è¾¾åˆ°ä¸€å°æ—¶
   {
     float h = dht.readHumidity();
     float t = dht.readTemperature();
     if ( isnan(h) || isnan(t) )
     {
-      Serial.println("ÎÂÊª¶È¶ÁÈ¡Òì³££¡");
+      Serial.println("æ¸©æ¹¿åº¦è¯»å–å¼‚å¸¸ï¼");
       sendHumiture_R[0][time_num_hh] = 0;
       sendHumiture_R[1][time_num_hh] = 0;
     #ifdef test
@@ -1380,7 +1380,7 @@ void loop()
 
     }
     time_num_hh++;
-    //ÏòÉÁ´æÖĞĞ´ÈëÕâÒ»Ğ¡Ê±ÀÏÊóÅÜ¶¯µÄÊı¾İ
+    //å‘é—ªå­˜ä¸­å†™å…¥è¿™ä¸€å°æ—¶è€é¼ è·‘åŠ¨çš„æ•°æ®
     //savaRunData();
     time_num_mm = 0;
 
@@ -1396,7 +1396,7 @@ void loop()
     }*/
 }
 
-//ÖĞ¶Ï·şÎñ³ÌĞò
+//ä¸­æ–­æœåŠ¡ç¨‹åº
 //void mouseRun1()
 //{
 //    runData1 += 0.25;
@@ -1511,13 +1511,13 @@ void saveLog(String data)
     wData += data;
     wData += "\n";
 
-    File dataFile = SPIFFS.open("/log" , "a");// ½¨Á¢File¶ÔÏóÓÃÓÚÏòSPIFFSÖĞµÄfile¶ÔÏó£¨¼´/notes.txt£©Ğ´ÈëĞÅÏ¢
-    dataFile.println(wData);       // ÏòdataFileĞ´Èë×Ö·û´®ĞÅÏ¢
+    File dataFile = SPIFFS.open("/log" , "a");// å»ºç«‹Fileå¯¹è±¡ç”¨äºå‘SPIFFSä¸­çš„fileå¯¹è±¡ï¼ˆå³/notes.txtï¼‰å†™å…¥ä¿¡æ¯
+    dataFile.println(wData);       // å‘dataFileå†™å…¥å­—ç¬¦ä¸²ä¿¡æ¯
     dataFile.close();
-    showData("\tÈÕÖ¾±£´æ³É¹¦" , true);
+    showData("\tæ—¥å¿—ä¿å­˜æˆåŠŸ" , true);
   } else
   {
-    showData("\t²»´æÔÚÈÕÖ¾ÎÄ¼ş" , true);
+    showData("\tä¸å­˜åœ¨æ—¥å¿—æ–‡ä»¶" , true);
   }
 
 

@@ -159,10 +159,14 @@ void setup()
   {
     Serial.println("存在控制台文件，开启服务器");
     AsyncStaticWebHandler* handler = &server.serveStatic("/log" , SPIFFS , "/").setDefaultFile("log");
+    handler->setAuthentication("log" , "admin");
     AsyncStaticWebHandler* handler2 = &server.serveStatic("/runData" , SPIFFS , "/runData/");
     handler2->setCacheControl("max-age=1");
     handler2->setAuthentication("data" , "admin");
-    if ( WiFi.status() == WL_CONNECTED )
+    AsyncStaticWebHandler* handler1 = &server.serveStatic("/" , SPIFFS , "/").setDefaultFile("index.html");
+    handler1->setAuthentication("admin" , "admin");
+    handler1->setLastModified("Fri, 14 Jan 2022 15:43:02 GMT");
+    /*if ( WiFi.status() == WL_CONNECTED )
     {
       AsyncStaticWebHandler* handler1 = &server.serveStatic("/" , SPIFFS , "/").setDefaultFile("index_conn.html");
       handler1->setAuthentication("admin" , "admin");
@@ -172,8 +176,8 @@ void setup()
       AsyncStaticWebHandler* handler1 = &server.serveStatic("/" , SPIFFS , "/").setDefaultFile("index.html");
       handler1->setAuthentication("admin" , "admin");
       handler1->setLastModified("Fri, 14 Jan 2022 15:43:02 GMT");
-    }
-    handler->setAuthentication("log" , "admin");
+    }*/
+   
 
     server.on("/reqRunData" , HTTP_POST , sendRunData);//给前端反馈跑动信息
     server.on("/reqHumiture" , HTTP_POST , sendHumiture);//给前端反馈温湿度信息
@@ -596,7 +600,7 @@ void getdumpEnergy(AsyncWebServerRequest* request)
 
 void sendFileName(AsyncWebServerRequest* request)
 {
-  request->send(200 , "text/plain" , getAllFileName());
+  request->send(200 , "text/plain" , getAllFileName(false));
 }
 
 void getVerificationCode(AsyncWebServerRequest* request)
@@ -614,15 +618,16 @@ void restoreFactorySet(AsyncWebServerRequest* request)
   Serial.print("用户输入验证码:");
   Serial.println(code);
   if ( VerificationCode_.state && code== VerificationCode_.code )
-  {
+  { 
     request->send(200);
+    getAllFileName(true);
   } else
   {
     request->send(500);
   }
 }
 
-String getAllFileName()
+String getAllFileName(bool delFile)
 {
   File myFile = SPIFFS.open("/runData");
   String outData;
@@ -638,11 +643,22 @@ String getAllFileName()
     i++;
     if ( !entry )
     {
+        if ( delFile )
+        {
+            Serial.println("恢复出厂设置完毕！");
+            ESP.restart();
+        }
       // 如果没有文件则跳出循环
       break;
     }
     String data = entry.name();
-
+    if ( delFile )
+    {
+        Serial.print("删除文件：");
+        Serial.println(data);
+        SPIFFS.remove(data);
+        continue;
+    }
     fileName.add(data.substring(9));
     Serial.print(data.substring(9));
     entry.close();
@@ -1063,9 +1079,20 @@ void loop()
         float t = dht.readTemperature();
         if ( isnan(h) || isnan(t) )
         {
-          th.add(0);
-          th.add(0);
-          Serial.println("读取温湿度异常！");
+         
+          Serial.println("读取温湿度异常,再次尝试读取中。。。");
+          h = dht.readHumidity();
+          t = dht.readTemperature();
+          if ( isnan(h) || isnan(t) )
+          {
+              Serial.println("再次读取失败！");
+              th.add(0);
+              th.add(0);
+          } else
+          {
+              th.add(t);
+              th.add(h);
+          }
         } else
         {
           th.add(t);
@@ -1116,12 +1143,24 @@ void loop()
         float t = dht.readTemperature();
         if ( isnan(h) || isnan(t) )
         {
-          th.add(0);
-          th.add(0);
+
+            Serial.println("读取温湿度异常,再次尝试读取中。。。");
+            h = dht.readHumidity();
+            t = dht.readTemperature();
+            if ( isnan(h) || isnan(t) )
+            {
+                Serial.println("再次读取失败！");
+                th.add(0);
+                th.add(0);
+            } else
+            {
+                th.add(t);
+                th.add(h);
+            }
         } else
         {
-          th.add(t);
-          th.add(h);
+            th.add(t);
+            th.add(h);
         }
 
         serializeJson(doc , outData);
@@ -1167,12 +1206,24 @@ void loop()
         float t = dht.readTemperature();
         if ( isnan(h) || isnan(t) )
         {
-          th.add(0);
-          th.add(0);
+
+            Serial.println("读取温湿度异常,再次尝试读取中。。。");
+            h = dht.readHumidity();
+            t = dht.readTemperature();
+            if ( isnan(h) || isnan(t) )
+            {
+                Serial.println("再次读取失败！");
+                th.add(0);
+                th.add(0);
+            } else
+            {
+                th.add(t);
+                th.add(h);
+            }
         } else
         {
-          th.add(t);
-          th.add(h);
+            th.add(t);
+            th.add(h);
         }
 
         serializeJson(doc , outData);

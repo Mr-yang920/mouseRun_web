@@ -597,6 +597,24 @@ void setServerTime(AsyncWebServerRequest* request)
 	Serial.print("写入数据TIME:");
 	Serial.println(time_.time);
 	rtc.adjust(DateTime(DATE.c_str() , time_.time.c_str()));
+	DateTime now = rtc.now();
+	if ( now.year()==2002 )
+	{
+		Serial.println("方式二写入");
+		DATE = "";
+		DATE += MM_[time_.MM - 1];
+		DATE += "  ";//如果时间设置失败尝试改为1/2个空格
+		DATE += time_.DD;
+		DATE += " ";
+		DATE += time_.YY;
+		Serial.println(DATE);
+		Serial.println(time_.time);
+		Serial.print("写入数据DATE:");
+		Serial.println(DATE);
+		Serial.print("写入数据TIME:");
+		Serial.println(time_.time);
+		rtc.adjust(DateTime(DATE.c_str() , time_.time.c_str()));
+	}
 	Serial.print("设置时间:成功");
 	/*if ( deldata == 1 )
 	{
